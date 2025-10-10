@@ -1,13 +1,5 @@
 "use client";
-
-import Image from "next/image";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Mail } from "lucide-react"; // Assuming you have an icon for messages
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import Autoplay from "embla-carousel-autoplay";
-import messages from "@/messages.json";
-
+import React from "react";
 import {
   Carousel,
   CarouselContent,
@@ -15,8 +7,12 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
+import messages from "@/messages.json";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Mail } from "lucide-react";
 
-export default function Home() {
+const Home = () => {
   return (
     <>
       {/* Main content */}
@@ -30,14 +26,14 @@ export default function Home() {
           </p>
         </section>
 
-        {/* Carousel for Messages */}
         <Carousel
+          className="w-full max-w-xs"
           plugins={[Autoplay({ delay: 2000 })]}
-          className="w-full max-w-lg md:max-w-xl"
         >
           <CarouselContent>
             {messages.map((message, index) => (
               <CarouselItem key={index} className="p-4">
+                {" "}
                 <Card>
                   <CardHeader>
                     <CardTitle>{message.title}</CardTitle>
@@ -55,13 +51,15 @@ export default function Home() {
               </CarouselItem>
             ))}
           </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
         </Carousel>
       </main>
-
-      {/* Footer */}
       <footer className="text-center p-4 md:p-6 bg-gray-900 text-white">
         © 2023 True Feedback. All rights reserved.
       </footer>
     </>
   );
-}
+};
+
+export default Home;
