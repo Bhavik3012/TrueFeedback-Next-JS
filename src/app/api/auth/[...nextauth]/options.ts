@@ -28,10 +28,12 @@ export const authOptions: NextAuthOptions = {
           if (!user.isVerified) {
             throw new Error("Please verify your account before logging in");
           }
+
           const isPasswordCorrect = await bcrypt.compare(
             credentials.password,
             user.password
           );
+
           if (isPasswordCorrect) {
             return user;
           } else {
@@ -56,10 +58,10 @@ export const authOptions: NextAuthOptions = {
     },
     async session({ session, token }) {
       if (token) {
-        ((session.user._id = token._id),
-          (session.user.isVerified = token.isVerified),
-          (session.user.isAcceptingMessages = token.isAcceptingMessages),
-          (session.user.username = token.username));
+          session.user._id = token._id,
+          session.user.isVerified = token.isVerified,
+          session.user.isAcceptingMessages = token.isAcceptingMessages,
+          session.user.username = token.username;
       }
 
       return session;
@@ -67,7 +69,7 @@ export const authOptions: NextAuthOptions = {
   },
 
   pages: {
-    signIn: "/signin",
+    signIn: "/sign-in",
   },
   session: {
     strategy: "jwt",
