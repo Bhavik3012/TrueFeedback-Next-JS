@@ -4,7 +4,6 @@ import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/User";
 import { User } from "next-auth";
 
-
 export async function POST(request: Request) {
   await dbConnect();
 
@@ -38,7 +37,7 @@ export async function POST(request: Request) {
       return Response.json(
         {
           success: false,
-          message: "failed to update user status to accept messages",
+          message: "Failed to update user status to accept messages",
         },
         {
           status: 401,
@@ -86,6 +85,7 @@ export async function GET(request: Request) {
       }
     );
   }
+  
   const userId = user._id;
 
   try {

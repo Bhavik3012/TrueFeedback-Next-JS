@@ -1,7 +1,8 @@
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/User";
-import { z } from "zod";
+import { success, z } from "zod";
 import { usernameValidation } from "@/schemas/signupSchema";
+import { message } from "@/schemas/message";
 
 const usernameQuerySchema = z.object({
   username: usernameValidation,
@@ -10,7 +11,7 @@ const usernameQuerySchema = z.object({
 export async function GET(request: Request) {
   await dbConnect();
 
-  // localhost:3000/api/cuu?username=hitesh?phone=android
+  // localhost:3000/api/cuu?username=bhavik?phone=android
   try {
     const { searchParams } = new URL(request.url);
     const queryParam = {
@@ -20,7 +21,6 @@ export async function GET(request: Request) {
     // validate with zod
     const result = usernameQuerySchema.safeParse(queryParam);
 
-    console.log(result);
     if (!result.success) {
       const usernameErrors = result.error.format().username?._errors || [];
 
@@ -30,7 +30,7 @@ export async function GET(request: Request) {
           message:
             usernameErrors?.length > 0
               ? usernameErrors.join(", ")
-              : "invalid parameters",
+              : "invalid query parameters",
         },
         { status: 400 }
       );
@@ -48,7 +48,7 @@ export async function GET(request: Request) {
           success: false,
           message: "Username is already taken.",
         },
-        { status: 200 }
+        { status: 400 }
       );
     }
     return Response.json(
