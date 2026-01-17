@@ -103,7 +103,7 @@ const page = () => {
         <div className="text-center mt-4">
           <p>
             Create one?{" "}
-            <Link href="/sign-in" className="text-blue-600 hover:text-blue-800">
+            <Link href="/sign-up" className="text-blue-600 hover:text-blue-800">
               Sign up
             </Link>
           </p>
