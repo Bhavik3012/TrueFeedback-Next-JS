@@ -22,7 +22,6 @@ export async function POST(request: Request) {
     }
 
     // isUser accepting the messages
-
     if (!user.isAcceptingMessages) {
       return Response.json(
         {
@@ -38,24 +37,24 @@ export async function POST(request: Request) {
     user.messages.push(newMessage as Message);
     await user.save();
     return Response.json(
-        {
-          success: true,
-          message: "Message sent successfully",
-        },
-        {
-          status: 200,
-        }
-      );
+      {
+        success: true,
+        message: "Message sent successfully",
+      },
+      {
+        status: 200,
+      }
+    );
   } catch (error) {
-    console.log("Error adding messages ", error)
+    console.log("Error adding messages ", error);
     return Response.json(
-        {
-          success: false,
-          message: "Internal server error",
-        },
-        {
-          status: 500,
-        }
-      );
+      {
+        success: false,
+        message: "Internal server error",
+      },
+      {
+        status: 500,
+      }
+    );
   }
 }
