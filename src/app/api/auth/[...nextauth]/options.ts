@@ -31,7 +31,7 @@ export const authOptions: NextAuthOptions = {
 
           const isPasswordCorrect = await bcrypt.compare(
             credentials.password,
-            user.password
+            user.password,
           );
 
           if (isPasswordCorrect) {
@@ -58,10 +58,10 @@ export const authOptions: NextAuthOptions = {
     },
     async session({ session, token }) {
       if (token) {
-          session.user._id = token._id,
-          session.user.isVerified = token.isVerified,
-          session.user.isAcceptingMessages = token.isAcceptingMessages,
-          session.user.username = token.username;
+        session.user._id = token._id;
+        session.user.isVerified = token.isVerified;
+        session.user.isAcceptingMessages = token.isAcceptingMessages;
+        session.user.username = token.username;
       }
 
       return session;
